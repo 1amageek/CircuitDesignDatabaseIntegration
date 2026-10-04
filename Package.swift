@@ -56,7 +56,8 @@ let package = Package(
                 .product(name: "DatabaseKit", package: "database-kit"),
                 .product(name: "DatabaseTypes", package: "database-types"),
                 .product(name: "DatabaseTypesFoundation", package: "database-types"),
-            ]
+            ],
+            exclude: ["DESIGN.md"]
         ),
         .target(
             name: "CircuitDesignDatabaseRuntimeAdapter",

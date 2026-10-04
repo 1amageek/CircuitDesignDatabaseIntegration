@@ -2,6 +2,7 @@ import CoreSpiceIR
 
 public enum CircuitDatabaseParameterValue: Sendable, Hashable, Codable {
     case real(Double)
+    case realVector([Double])
     case integer(Int64)
     case string(String)
     case complex(real: Double, imaginary: Double)
@@ -17,6 +18,11 @@ public enum CircuitDatabaseParameterValue: Sendable, Hashable, Codable {
                 throw .nonFiniteNumericValue
             }
             self = .real(value)
+        case .realVector(let values):
+            guard values.allSatisfy(\.isFinite) else {
+                throw .nonFiniteNumericValue
+            }
+            self = .realVector(values)
         case .integer(let value):
             guard let exact = Int64(exactly: value) else {
                 throw .integerOverflow
@@ -48,6 +54,11 @@ public enum CircuitDatabaseParameterValue: Sendable, Hashable, Codable {
                 throw .nonFiniteNumericValue
             }
             return .real(value)
+        case .realVector(let values):
+            guard values.allSatisfy(\.isFinite) else {
+                throw .nonFiniteNumericValue
+            }
+            return .realVector(values)
         case .integer(let value):
             guard let exact = Int(exactly: value) else {
                 throw .integerOverflow
@@ -77,6 +88,10 @@ public enum CircuitDatabaseParameterValue: Sendable, Hashable, Codable {
         switch self {
         case .real(let value):
             guard value.isFinite else {
+                throw .nonFiniteNumericValue
+            }
+        case .realVector(let values):
+            guard values.allSatisfy(\.isFinite) else {
                 throw .nonFiniteNumericValue
             }
         case .integer:

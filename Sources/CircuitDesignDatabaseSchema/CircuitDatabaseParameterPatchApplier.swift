@@ -142,7 +142,7 @@ public struct CircuitDatabaseParameterPatchApplier:
                 )
             }
             return .integer(exact)
-        case .string, .complex, .expression, .behavioralExpression:
+        case .realVector, .string, .complex, .expression, .behavioralExpression:
             throw .nonNumericParameter(
                 instance: patch.instanceName,
                 parameter: patch.parameterName
