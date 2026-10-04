@@ -30,10 +30,7 @@ let package = Package(
             named: "DesignDatabase",
             exactVersion: "26.812.1"
         ),
-        releasedDependency(
-            named: "CoreSpice",
-            exactVersion: "26.812.0"
-        ),
+        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "8fbcee58575b37a01795e11110731cfc16566520"),
         .package(
             url: "https://github.com/1amageek/database-kit.git",
             exact: "26.0809.4"
