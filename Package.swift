@@ -24,7 +24,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/1amageek/CircuiteFoundation.git", revision: "ae88104c556f5802819713ed741f5b2fffffc2d9"),
         .package(url: "https://github.com/1amageek/DesignDatabase.git", revision: "11df4ff7d905d642b5935defb3bc1fbcfefda038"),
-        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "7bcc1c11dcfb56c24830e667817ea08f2fe01676"),
+        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "9ff02fa3a9acf7db94afbdaccc2294e2e1aa09b7"),
         .package(
             url: "https://github.com/1amageek/database-kit.git",
             exact: "26.0809.4"
