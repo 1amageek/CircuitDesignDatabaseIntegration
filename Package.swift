@@ -26,8 +26,8 @@ let package = Package(
             named: "CircuiteFoundation",
             exactVersion: "26.812.0"
         ),
-        .package(url: "https://github.com/1amageek/DesignDatabase.git", revision: "78f1c2e28e804e7c750014827e9f18c88c2272e3"),
-        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "305d0933018f8a987c73c5186f53740ca315a516"),
+        .package(url: "https://github.com/1amageek/DesignDatabase.git", revision: "11df4ff7d905d642b5935defb3bc1fbcfefda038"),
+        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "fce8ca02194eabc63b4455f80070c1b8847a3377"),
         .package(
             url: "https://github.com/1amageek/database-kit.git",
             exact: "26.0809.4"
