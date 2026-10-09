@@ -22,10 +22,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        releasedDependency(
-            named: "CircuiteFoundation",
-            exactVersion: "26.812.0"
-        ),
+        .package(url: "https://github.com/1amageek/CircuiteFoundation.git", revision: "ae88104c556f5802819713ed741f5b2fffffc2d9"),
         .package(url: "https://github.com/1amageek/DesignDatabase.git", revision: "11df4ff7d905d642b5935defb3bc1fbcfefda038"),
         .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "fce8ca02194eabc63b4455f80070c1b8847a3377"),
         .package(
