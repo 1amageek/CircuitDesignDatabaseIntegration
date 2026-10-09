@@ -5,6 +5,29 @@ import Testing
 
 @Suite("Circuit DesignDatabase schema")
 struct CircuitDatabaseSchemaTests {
+    @Test("ambient temperature remains dynamic through canonical circuit storage")
+    func ambientTemperatureVariableRoundTrips() throws {
+        var netlist = Netlist()
+        try netlist.addInstance(name: "R1", typeName: "resistor", nodes: ["out", "0"],
+            parameters: ["r": .behavioralExpression(.binary(.add, .constant(1_000),
+                .variable(.ambientTemperatureCelsius)))])
+        let state = try CircuitDatabaseState(circuitID: "temperature-circuit",
+            sourceArtifact: circuitArtifact(), circuit: netlist.build())
+        let bytes = try CircuitDatabaseCanonicalCodec.encode(state)
+        let decoded = try CircuitDatabaseCanonicalCodec.decode(bytes)
+        #expect(decoded == state)
+        #expect(try CircuitDatabaseCanonicalCodec.encode(decoded) == bytes)
+        let restored = try decoded.domainCircuit()
+        let instance = try #require(restored.instances.first)
+        guard case .behavioralExpression(.binary(.add, .constant(1_000),
+            .variable(.ambientTemperatureCelsius))) = instance.parameters["r"] else {
+            Issue.record("Canonical storage replaced or lost the dynamic ambient variable.")
+            return
+        }
+        try CircuitDatabaseBehavioralExpression(.variable(.ambientTemperatureCelsius))
+            .validate(nodeIDs: [], referencedBranchCount: 0)
+    }
+
     @Test("structural circuit round-trips without source location")
     func structuralCircuitRoundTrips() throws {
         let state = try makeCircuitState()

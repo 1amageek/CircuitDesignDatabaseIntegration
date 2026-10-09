@@ -11,6 +11,7 @@ public indirect enum CircuitDatabaseBehavioralExpression:
         case nodeVoltage(positiveNodeID: Int, negativeNodeID: Int)
         case branchCurrentReference(Int)
         case time
+        case ambientTemperatureCelsius
     }
 
     public enum UnaryOperator: String, Sendable, Hashable, Codable {
@@ -181,7 +182,7 @@ public indirect enum CircuitDatabaseBehavioralExpression:
                 guard index >= 0, index < referencedBranchCount else {
                     throw .invalidBehavioralBranchReference(index)
                 }
-            case .time:
+            case .time, .ambientTemperatureCelsius:
                 break
             }
         case .unary(_, let operand):
@@ -285,6 +286,8 @@ public indirect enum CircuitDatabaseBehavioralExpression:
             .branchCurrentReference(index)
         case .time:
             .time
+        case .ambientTemperatureCelsius:
+            .ambientTemperatureCelsius
         }
     }
 
@@ -363,6 +366,8 @@ private extension CircuitDatabaseBehavioralExpression.Variable {
             .branchCurrentReference(index)
         case .time:
             .time
+        case .ambientTemperatureCelsius:
+            .ambientTemperatureCelsius
         }
     }
 }

@@ -18,8 +18,8 @@ its immutable input unchanged. Source waveform meaning belongs to CoreSpice.
 
 | Design | Relationship | Contract Used | Summary | Cautions |
 |---|---|---|---|---|
-| [Package](../../DESIGN.md) | parent | Exact dependency adoption | Host integration | CoreSpice8fb is the adopted source authority |
-| [CoreSpice IR](../../../CoreSpice/Sources/CoreSpiceIR/DESIGN.md) | depends on | ParameterValue.realVector | Ordered numeric vector | Shape and source interpretation are not schema-owned |
+| [Package](../../DESIGN.md) | parent | Exact dependency adoption | Host integration | The pinned CoreSpice revision is the domain authority |
+| [CoreSpice IR](../../../CoreSpice/Sources/CoreSpiceIR/DESIGN.md) | depends on | ParameterValue and BehavioralVariable | Canonical values and dynamic expression variables | Numeric interpretation and physical binding are not schema-owned |
 
 ## Architecture
 
@@ -48,6 +48,14 @@ metadata, identifiers, connectivity and input state. A later failure in a patch
 batch cannot publish the intermediate local copy. Successful mutation requires a
 changed source artifact and at least one effective numeric change.
 
+The behavioral variable union preserves `ambientTemperatureCelsius` as a dynamic
+variable through domain projection, canonical Codable payload, validation and
+domain reconstruction. It needs no node or branch reference and is never replaced
+with a numeric temperature during storage. Devices binding remains the sole owner
+of its value. The existing v1 framing permits this explicit additional union case;
+unknown discriminators continue to fail decoding rather than default to time or a
+constant.
+
 ## Failure, Concurrency, and Constraints
 
 The public applier is synchronous and uses request-local value storage. It owns
@@ -63,5 +71,6 @@ no new allocation or performance guarantee is claimed.
 verifies real production projection/state/codec, vector rejection, unrelated scalar
 success, atomic batch failure, exact integer behavior and nonfinite admission.
 [CircuitDatabaseSchemaTests](../../Tests/CircuitDesignDatabaseIntegrationTests/CircuitDatabaseSchemaTests.swift)
-and existing runtime tests cover canonical structure and publication. New domain
+verifies the ambient variable through the actual state/codec/domain round trip;
+existing runtime tests cover publication. New domain
 value kinds require explicit schema admission and scalar patch classification.
