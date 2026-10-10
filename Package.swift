@@ -10,7 +10,7 @@ func releasedDependency(named name: String, exactVersion: Version) -> Package.De
 
 let package = Package(
     name: "CircuitDesignDatabaseIntegration",
-    platforms: [.macOS(.v26)],
+    platforms: [.macOS("27.0")],
     products: [
         .library(
             name: "CircuitDesignDatabaseSchema",
@@ -24,7 +24,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/1amageek/CircuiteFoundation.git", revision: "ae88104c556f5802819713ed741f5b2fffffc2d9"),
         .package(url: "https://github.com/1amageek/DesignDatabase.git", revision: "11df4ff7d905d642b5935defb3bc1fbcfefda038"),
-        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "d2eefa69cd1980087fcb29787aa1f71ccc276b0f"),
+        .package(url: "https://github.com/1amageek/CoreSpice.git", revision: "60543b6fca295827d568a5d73a3e8134e6419997"),
         .package(
             url: "https://github.com/1amageek/database-kit.git",
             exact: "26.0809.4"

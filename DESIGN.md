@@ -39,6 +39,8 @@ without scalar coercion; failures remain typed.
 
 ## Verification and Change Impact
 
+The package manifest consumes the [CoreSpice host deployment contract](../CoreSpice/DESIGN.md#responsibilities-and-boundaries) through its exact dependency closure. Changes to that contract require resolution and affected host-product verification.
+
 Schema and parameter patch tests exercise the actual projection, canonical codec,
 public applier and failures. Existing runtime tests own immutable publication.
 Xcircuite and Studio must adopt the verified immutable integration revision before
